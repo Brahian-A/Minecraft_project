@@ -1,0 +1,10 @@
+flowchart TD
+  A[Usuario abre Web App] --> B[Ve minijuegos]
+  B --> C[Elige jugar uno]
+  C --> D[WebApp pide a Backend crear partida]
+  D --> E[Backend lanza servidor en Pterodactyl]
+  E --> F[Servidor Minecraft se inicia y espera jugadores]
+  F --> G[Usuario es redirigido o conectado]
+  G --> H[Juegan partida]
+  H --> I[Servidor informa al Backend quién ganó]
+  I --> J[Backend suma monedas al ganador]
