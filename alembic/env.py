@@ -2,15 +2,15 @@ from __future__ import with_statement
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from app.db import Base
-from app import app  # Importamos tu app de Flask
-from flask import current_app
+import os
 
-# Importamos todos los modelos
-from app.models import *  # Asegúrate de importar todos los modelos para que Alembic los detecte
+# Importamos todos los modelos para que Alembic los detecte
+from app.models import *  # Asegúrate de importar todos los modelos
 
 # Configuración de la base de datos
 def get_url():
-    return app.config['SQLALCHEMY_DATABASE_URI']
+    # Usamos la variable de entorno para obtener la URL de la base de datos
+    return os.getenv("DATABASE_URL", "sqlite:///db.sqlite3")
 
 # Configuramos el target_metadata
 target_metadata = Base.metadata
@@ -22,7 +22,7 @@ def run_migrations_online():
         context.config.get_section(context.config.config_ini_section),
         prefix='sqlalchemy.',
         poolclass=pool.NullPool,
-        url=get_url()  # Usamos la URL de Flask
+        url=get_url()  # Usamos la URL desde la variable de entorno
     )
 
     with connectable.connect() as connection:
