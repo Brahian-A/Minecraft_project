@@ -1,18 +1,18 @@
 from flask import Flask
+from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
-from dotenv import load_dotenv
-import os
+from app.db import db
 
-# Cargar las variables de entorno desde .env
-load_dotenv()
+# Inicializar extensiones
+bcrypt = Bcrypt()
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('config.Config')
 
-# Inicializar la app y la base de datos
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    # Inicializar extensiones con la aplicación
+    bcrypt.init_app(app)
+    db.init_app(app)
 
-# Inicializamos SQLAlchemy
-db = SQLAlchemy(app)
+    # Registrar blueprints o rutas si es necesario
+    return app

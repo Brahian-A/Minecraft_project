@@ -1,17 +1,19 @@
-from app import db
+from app import create_app, db
 from app.models.user import User
-from app import app
 import datetime
 
-# Crear la instancia de la aplicación con el contexto adecuado
+# Crear la aplicación Flask
+app = create_app()
+
+# Crear el contexto de la aplicación
 with app.app_context():
     # Crear un nuevo usuario
     user = User(
-        username="Brahian", 
-        email="brahian@example.com", 
-        password_hash="hashed_password", 
-        coins=0, 
-        created_at=datetime.datetime.utcnow()
+        first_name="Brahian",
+        last_name="Doe",
+        username="Brahian",
+        email="brahian@example.com",
+        password="secure_password"
     )
 
     # Agregar el usuario a la sesión de la base de datos

@@ -1,9 +1,9 @@
 from datetime import datetime
-from app.db import Base
+from app.db import db
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 
-class Match(Base):
+class Match(db.Model):
     __tablename__ = 'matches'
 
     id = Column(Integer, primary_key=True)

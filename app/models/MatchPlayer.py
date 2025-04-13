@@ -1,8 +1,8 @@
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
-from app.db import Base
+from app.db import db
 
-class MatchPlayer(Base):
+class MatchPlayer(db.Model):
     __tablename__ = 'match_players'
 
     id = Column(Integer, primary_key=True)
